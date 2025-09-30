@@ -8,8 +8,8 @@ namespace SchoolApp.Repositories
     {
         Task<List<Course>> GetStudentCoursesAsync(int studentId);
         Task<Student?> GetByam(string? am);
-        Task<PaginatedResult<Student>> GetPaginatedUsersStudentsAsync(int pageNumber, int pageSize);
-        Task<PaginatedResult<Student>> GetPaginatedUsersStudentsFilteredAsync(int pageNumber, int pageSize,
+        Task<PaginatedResult<User>> GetPaginatedUsersStudentsAsync(int pageNumber, int pageSize);
+        Task<PaginatedResult<User>> GetPaginatedUsersStudentsFilteredAsync(int pageNumber, int pageSize,
             List<Expression<Func<User, bool>>> predicates);
     }
 }

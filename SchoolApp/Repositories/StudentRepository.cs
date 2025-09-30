@@ -15,12 +15,12 @@ namespace SchoolApp.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<PaginatedResult<Student>> GetPaginatedUsersStudentsAsync(int pageNumber, int pageSize)
+        public Task<PaginatedResult<User>> GetPaginatedUsersStudentsAsync(int pageNumber, int pageSize)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PaginatedResult<Student>> GetPaginatedUsersStudentsFilteredAsync(int pageNumber, int pageSize, List<Expression<Func<User, bool>>> predicates)
+        public Task<PaginatedResult<User>> GetPaginatedUsersStudentsFilteredAsync(int pageNumber, int pageSize, List<Expression<Func<User, bool>>> predicates)
         {
             throw new NotImplementedException();
         }
