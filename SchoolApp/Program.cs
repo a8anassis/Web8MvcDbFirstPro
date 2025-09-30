@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolApp.Data;
+using SchoolApp.Repositories;
 
 namespace SchoolApp
 {
@@ -11,7 +12,9 @@ namespace SchoolApp
 
             var connString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<Mvc8DbProContext>(options => options.UseSqlServer(connString));
-
+            builder.Services.AddRepositories();
+            
+            
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
