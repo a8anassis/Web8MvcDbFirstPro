@@ -3,9 +3,9 @@
     public interface IUnitOfWork
     {
         UserRepository UserRepository { get; }
-        // StudentRepository StudentRepository { get; }
+        StudentRepository StudentRepository { get; }
         TeacherRepository TeacherRepository { get; }
-        //CourseRepository CourseRepository { get; }
+        CourseRepository CourseRepository { get; }
 
         Task<bool> SaveAsync();
     }
