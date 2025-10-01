@@ -10,7 +10,7 @@ namespace SchoolApp.Repositories
         {
         }
 
-        public Task<Student?> GetByam(string? am)
+        public Task<Student?> GetByAm(string? am)
         {
             throw new NotImplementedException();
         }
