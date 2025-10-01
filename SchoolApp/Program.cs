@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SchoolApp.Data;
 using SchoolApp.Repositories;
+using SchoolApp.Services;
 using Serilog;
 
 namespace SchoolApp
@@ -17,6 +19,7 @@ namespace SchoolApp
 
             builder.Services.AddDbContext<Mvc8DbProContext>(options => options.UseSqlServer(connString));
             builder.Services.AddRepositories();
+            builder.Services.AddScoped<IApplicationService, ApplicationService>();
 
             builder.Services.AddAutoMapper(cfg => cfg.AddProfile<Configuration.MapperConfig>());
             builder.Host.UseSerilog((context, config) =>
@@ -24,9 +27,16 @@ namespace SchoolApp
                config.ReadFrom.Configuration(context.Configuration);
             });
 
-
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/User/Login";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.SlidingExpiration = true;   // reset timeout, 30 min of idle
+                });
 
             var app = builder.Build();
 
@@ -43,11 +53,12 @@ namespace SchoolApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=User}/{action=Login}/{id?}");
 
             app.Run();
         }

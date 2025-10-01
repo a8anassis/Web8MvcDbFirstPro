@@ -21,4 +21,9 @@
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\User\" />
+    <Folder Include="Views\Teacher\" />
+  </ItemGroup>
+
 </Project>

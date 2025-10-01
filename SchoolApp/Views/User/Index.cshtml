@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+﻿@{
+    ViewData["Title"] = "School App";
+}
+
+@using Microsoft.AspNetCore.Identity
+
+@if (User.IsInRole("Teacher"))
+{
+    <div class="text-center">
+        <span>Teacher Dashboard</span>
+    </div>
+}
+
+
+@if (User.IsInRole("Student"))
+{
+    <div>
+        <span>Student Dashboard</span>
+    </div>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        <span>Admin Dashboard</span>
+    </div>
+}
