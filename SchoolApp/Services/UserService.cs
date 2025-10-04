@@ -14,7 +14,8 @@ namespace SchoolApp.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        private readonly ILogger<UserService> logger = new LoggerFactory().AddSerilog().CreateLogger<UserService>();
+        private readonly ILogger<UserService> logger = 
+            new LoggerFactory().AddSerilog().CreateLogger<UserService>();
 
         public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -22,8 +23,8 @@ namespace SchoolApp.Services
             this.mapper = mapper;
         }
 
-        public async Task<PaginatedResult<UserReadOnlyDTO>> GetPaginatedUsersFilteredAsync(int pageNumber, int pageSize, 
-            UserFiltersDTO userFiltersDTO)
+        public async Task<PaginatedResult<UserReadOnlyDTO>> GetPaginatedUsersFilteredAsync(int pageNumber, 
+            int pageSize, UserFiltersDTO userFiltersDTO)
         {
             List<User> users = [];
             List<Expression<Func<User, bool>>> predicates = [];
@@ -99,8 +100,11 @@ namespace SchoolApp.Services
 
                 if (user == null)
                 {
-                    throw new EntityNotAuthorizedException("User", "Bad Credentials");
+                    //throw new EntityNotAuthorizedException("User", "Bad Credentials");
+                    // see Resources/Strings.resx for localization
+                    throw new EntityNotAuthorizedException("User", Resources.ErrorMessages.BadCredentials); 
                 }
+
                 logger.LogInformation("User with username {Username} found", credentials.Username!);
             }
             catch (EntityNotAuthorizedException e)
