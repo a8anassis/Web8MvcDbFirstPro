@@ -23,7 +23,12 @@
 
   <ItemGroup>
     <Folder Include="Views\User\" />
-    <Folder Include="Views\Teacher\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ErrorMessages.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
