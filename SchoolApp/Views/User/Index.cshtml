@@ -7,24 +7,24 @@
 
 @using Microsoft.AspNetCore.Identity
 
-@if (User.IsInRole("Teacher"))
-{
-    <div class="text-center">
-        <span>Teacher Dashboard</span>
-    </div>
-}
-
-
-@if (User.IsInRole("Student"))
-{
-    <div>
-        <span>Student Dashboard</span>
-    </div>
-}
-
-@if (User.IsInRole("Admin"))
-{
-    <div>
-        <span>Admin Dashboard</span>
-    </div>
+@{
+    if (User.IsInRole("Admin"))
+    {
+        Context.Response.Redirect(Url.Action("Dashboard", "Admin")!);
+    }
+    else if (User.IsInRole("Teacher"))
+    {
+        Context.Response.Redirect(Url.Action("Dashboard", "Teacher")!);
+    }
+    else if (User.IsInRole("Student"))
+    {
+        Context.Response.Redirect(Url.Action("Dashboard", "Student")!);
+    }
+    else
+    {
+        // fallback for users without a role
+        <div class="text-center mt-5">
+            <h4>No dashboard available for your role.</h4>
+        </div>
+    }
 }
