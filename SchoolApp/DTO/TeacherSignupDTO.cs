@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SchoolApp.DTO
 {
-    public class TeacherSignupDTO
+    public record TeacherSignupDTO
     {
         [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Username must be between 2 and 50 characters.")]

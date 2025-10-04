@@ -2,7 +2,7 @@
 
 namespace SchoolApp.DTO
 {
-    public class UserLoginDTO
+    public record UserLoginDTO
     {
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Username must be between " +
             "2 and 50 characters.")]
