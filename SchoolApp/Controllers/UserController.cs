@@ -31,7 +31,8 @@ namespace SchoolApp.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Index", "Home");   // Dashboard todo move to dashboard
+            
+            return RedirectToDashboard(principal);
         }
 
         [HttpPost]
@@ -54,10 +55,10 @@ namespace SchoolApp.Controllers
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Username),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // Usually the user ID
+                    new Claim(ClaimTypes.Name, user.Username), // This sets User.Identity.Name
                     new Claim(ClaimTypes.Role, user.UserRole.ToString()!)
                 };
-
 
                 ClaimsIdentity identity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 AuthenticationProperties properties = new()
@@ -71,26 +72,13 @@ namespace SchoolApp.Controllers
 
 
                 // Redirect based on role
-                if (User.IsInRole("Admin"))
-                {
-                    return RedirectToAction("Index", "Admin");
-                }
-                else if (User.IsInRole("Teacher"))
-                {
-                    return RedirectToAction("Index", "Teacher");
-                }
-                else if (User.IsInRole("Student"))
-                {
-                    return RedirectToAction("Index", "Student");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "User");
-                }
+                //ClaimsPrincipal? principal = HttpContext.User;
+                var principal = new ClaimsPrincipal(identity);
+                return RedirectToDashboard(principal);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                ViewData["ValidateMessage"] = ex.Message;
                 return View();
             }
         }
@@ -100,6 +88,27 @@ namespace SchoolApp.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "User");
+        }
+
+
+        private IActionResult RedirectToDashboard(ClaimsPrincipal user)
+        {
+            if (user.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (user.IsInRole("Teacher"))
+            {
+                return RedirectToAction("Index", "Teacher");
+            }
+            else if (user.IsInRole("Student"))
+            {
+                return RedirectToAction("Index", "Student");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home"); // Fallback
+            }
         }
     }
 }
