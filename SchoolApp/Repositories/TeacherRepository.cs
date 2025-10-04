@@ -44,15 +44,15 @@ namespace SchoolApp.Repositories
         }
         
 
-        public async Task<List<User>> GetAllUsersTeachersAsync()
-        {
-            var usersWithRoleTeacher = await context.Users
-                .Where(u => u.UserRole == UserRole.Teacher)
-                .Include(u => u.Teacher) // Εager loading της σχετικής οντότητας Teacher
-                .ToListAsync();
+        //public async Task<List<User>> GetAllUsersTeachersAsync()
+        //{
+        //    var usersWithRoleTeacher = await context.Users
+        //        .Where(u => u.UserRole == UserRole.Teacher)
+        //        .Include(u => u.Teacher) // Εager loading της σχετικής οντότητας Teacher
+        //        .ToListAsync();
 
-            return usersWithRoleTeacher;
-        }
+        //    return usersWithRoleTeacher;
+        //}
 
         public async Task<PaginatedResult<User>> GetPaginatedUsersTeachersAsync(int pageNumber, int pageSize)
         {
@@ -70,9 +70,7 @@ namespace SchoolApp.Repositories
                 .CountAsync();
 
             return new PaginatedResult<User>(usersWithRoleTeacher, totalRecords, pageNumber, pageSize);
-        }
-
-        
+        }     
 
         public async Task<PaginatedResult<User>> GetPaginatedUsersTeachersFilteredAsync(int pageNumber, int pageSize, 
             List<Expression<Func<User, bool>>> predicates)
@@ -100,9 +98,5 @@ namespace SchoolApp.Repositories
 
             return new PaginatedResult<User>(data, totalRecords, pageNumber, pageSize);
         }
-
-       
-
-        
     }
 }

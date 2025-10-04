@@ -10,7 +10,6 @@ namespace SchoolApp.Repositories
         Task<Teacher?> GetByPhoneNumberAsync(string phoneNumber);
         Task<User?> GetUserTeacherByUsernameAsync(string username);
         
-        Task<List<User>> GetAllUsersTeachersAsync();
         Task<PaginatedResult<User>> GetPaginatedUsersTeachersAsync(int pageNumber, int pageSize);
         Task<PaginatedResult<User>> GetPaginatedUsersTeachersFilteredAsync(int pageNumber, int pageSize, 
             List<Expression<Func<User, bool>>> predicates);

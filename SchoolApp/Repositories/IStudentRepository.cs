@@ -9,7 +9,7 @@ namespace SchoolApp.Repositories
         Task<List<Course>> GetStudentCoursesAsync(int studentId);
         Task<Student?> GetByAm(string? am);
         Task<PaginatedResult<User>> GetPaginatedUsersStudentsAsync(int pageNumber, int pageSize);
-        Task<PaginatedResult<User>> GetPaginatedUsersStudentsFilteredAsync(int pageNumber, int pageSize,
-            List<Expression<Func<User, bool>>> predicates);
+        Task<PaginatedResult<Student>> GetPaginatedUsersStudentsFilteredAsync(int pageNumber, int pageSize,
+            List<Expression<Func<Student, bool>>> predicates);
     }
 }
