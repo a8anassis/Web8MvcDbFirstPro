@@ -24,7 +24,8 @@ namespace SchoolApp.Controllers
                 return View();
             }
             //return RedirectToAction("Index", "Home");   // Dashboard todo move to dashboard
-            return RedirectToDashboard(principal);
+            //return RedirectToDashboard(principal);
+            return RedirectToAction("Index", "User");
         }
 
         private IActionResult RedirectToDashboard(ClaimsPrincipal user)
